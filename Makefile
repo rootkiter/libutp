@@ -18,10 +18,10 @@ CXXFLAGS += -fpermissive
 # against it for clock_gettime(2).  This is required for clean builds on OSX;
 # see <https://github.com/bittorrent/libutp/issues/1> for more.  This should
 # probably be ported to CMake at some point, but is suitable for now.
-TARGET := $(shell gcc -dumpmachine)
+TARGET := $(shell $(CC) -dumpmachine)
 ifeq ($(findstring mingw,$(TARGET)),mingw)
-  OBJS+=libutp_inet_ntop.o
-  LDFLAGS=-lws2_32
+  OBJS   += libutp_inet_ntop.o
+  LDFLAGS = -lws2_32
 else
   lrt := $(shell echo 'int main() {}' | $(CC) -xc -o /dev/null - -lrt >/dev/null 2>&1; echo $$?)
   ifeq ($(strip $(lrt)),0)
@@ -29,10 +29,12 @@ else
   endif
 endif
 
+
 all: libutp.so libutp.a ucat ucat-static
 
 libutp.so: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o libutp.so -shared $(OBJS)
+	echo $(OBJS)
+	$(CXX) $(CXXFLAGS) -o libutp.so -shared $(OBJS) $(LDFLAGS)
 
 libutp.a: $(OBJS)
 	ar rvs libutp.a $(OBJS)
