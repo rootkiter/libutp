@@ -33,3 +33,6 @@ SET_SOURCE_FILES_PROPERTIES(${LIBUTP_SRC} PROPERTIES LANGUAGE C)
 
 target_link_libraries(libutp PUBLIC stdc++)
 target_link_libraries(libutp_static PUBLIC stdc++)
+target_include_directories(
+    libutp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
