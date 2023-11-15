@@ -3180,7 +3180,7 @@ ssize_t utp_writev(utp_socket *conn, struct utp_iovec *iovec_input, size_t num_i
 	size_t param = bytes;
 	#endif
 
-	if (conn->state != CS_CONNECTED) {
+	if (conn->state != CS_CONNECTED && conn->state != CS_SYN_RECV) {
 		#if UTP_DEBUG_LOGGING
 		conn->log(UTP_LOG_DEBUG, "UTP_Write %u bytes = false (not CS_CONNECTED)", (uint)bytes);
 		#endif
