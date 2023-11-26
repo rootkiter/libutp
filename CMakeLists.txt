@@ -21,17 +21,20 @@ set(LIBUTP_SRC
     utp_packedsockaddr.cpp
 )
 
-# # Build libutp as a shared library
-# add_library(libutp SHARED ${LIBUTP_SRC})
-# set_target_properties(libutp PROPERTIES OUTPUT_NAME "utp")
-# SET_SOURCE_FILES_PROPERTIES(${LIBUTP_SRC} PROPERTIES LANGUAGE C)
+# Build libutp as a shared library
+add_library(libutp SHARED ${LIBUTP_SRC})
+set_target_properties(libutp PROPERTIES OUTPUT_NAME "utp")
+SET_SOURCE_FILES_PROPERTIES(${LIBUTP_SRC} PROPERTIES LANGUAGE C)
 
 # Build libutp as a static library
 add_library(libutp_static STATIC ${LIBUTP_SRC})
 set_target_properties(libutp_static PROPERTIES OUTPUT_NAME "utp")
 SET_SOURCE_FILES_PROPERTIES(${LIBUTP_SRC} PROPERTIES LANGUAGE C)
 
-# target_link_libraries(libutp PUBLIC stdc++)
+target_link_libraries(libutp PUBLIC stdc++)
+target_include_directories(
+    libutp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
 target_link_libraries(libutp_static PUBLIC stdc++)
 target_include_directories(
     libutp_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
